@@ -35,7 +35,7 @@ public class RoundController
         }
         catch (Exception e)
         {
-            System.err.println(e.getStackTrace());
+            e.printStackTrace();
             context.getResponse().serverError("");
         }
     }
@@ -48,12 +48,12 @@ public class RoundController
     {
         try
         {
-            Long playerId = Long.parseLong(context.getRequest().getParam("playerId"));
+            String playerUId = context.getRequest().getParam("playerUId");
 
             PlayerDAO playerDAO = new PlayerDAO();
             GameDAO gameDAO = new GameDAO();
 
-            Player player = playerDAO.find(playerId);
+            Player player = playerDAO.findByUId(playerUId);
 
             if (player == null)
             {

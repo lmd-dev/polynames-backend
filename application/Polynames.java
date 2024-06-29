@@ -68,18 +68,18 @@ public class Polynames
         this.webServer.getRouter().get("/games/:gameCode", GameController::find);
         this.webServer.getRouter().get("/games/:gameCode/players", PlayerController::findAll);
         this.webServer.getRouter().get("/games/:gameCode/rounds", RoundController::findAll);
-        this.webServer.getRouter().get("/games/:gameCode/cards/:playerId", CardController::findAll);
+        this.webServer.getRouter().get("/games/:gameCode/cards/:playerUId", CardController::findAll);
         this.webServer.getRouter().post("/games", GameController::createGame);
         this.webServer.getRouter().post("/games/:gameCode", GameController::joinGame);
-        this.webServer.getRouter().post("/games/:gameCode/cards/:playerId/:cardId", CardController::reveal);
-        this.webServer.getRouter().post("/games/:gameCode/rounds/:playerId", RoundController::finish);
-        this.webServer.getRouter().post("/games/:gameCode/clues/:playerId", ClueController::append);
-        this.webServer.getRouter().delete("/games/:gameCode/players/:playerId", PlayerController::remove);
+        this.webServer.getRouter().post("/games/:gameCode/cards/:playerUId/:cardId", CardController::reveal);
+        this.webServer.getRouter().post("/games/:gameCode/rounds/:playerUId", RoundController::finish);
+        this.webServer.getRouter().post("/games/:gameCode/clues/:playerUId", ClueController::append);
+        this.webServer.getRouter().delete("/games/:gameCode/players/:playerUId", PlayerController::remove);
 
-        this.webServer.getRouter().get("/players/:playerId", PlayerController::find);
+        this.webServer.getRouter().get("/players/:playerUId", PlayerController::find);
 
         this.webServer.getRouter().get("/roles", RoleController::findAll);
-        this.webServer.getRouter().get("/roles/:playerId", RoleController::findForPlayer);
-        this.webServer.getRouter().post("/roles/:playerId", RoleController::chooseRole);
+        this.webServer.getRouter().get("/roles/:playerUId", RoleController::findForPlayer);
+        this.webServer.getRouter().post("/roles/:playerUId", RoleController::chooseRole);
     }
 }

@@ -17,10 +17,10 @@ public class PlayerController
      */
     public static void find(WebServerContext context)
     {
-        Long playerId = Long.parseLong(context.getRequest().getParam("playerId"));
+        String playerUId = context.getRequest().getParam("playerUId");
 
         PlayerDAO playerDAO = new PlayerDAO();
-        Player player = playerDAO.find(playerId);
+        Player player = playerDAO.findByUId(playerUId);
 
         if (player == null)
         {
@@ -61,10 +61,10 @@ public class PlayerController
         try
         {
             String gameCode = context.getRequest().getParam("gameCode");
-            Long playerId = Long.parseLong(context.getRequest().getParam("playerId"));
+            String playerUId = context.getRequest().getParam("playerUId");
 
             PlayerDAO playerDAO = new PlayerDAO();
-            Player player = playerDAO.find(playerId);
+            Player player = playerDAO.findByUId(playerUId);
 
             if (player == null)
             {
@@ -72,7 +72,7 @@ public class PlayerController
                 return;
             }
 
-            if (playerDAO.remove(playerId) == false)
+            if (playerDAO.remove(player.id()) == false)
             {
                 context.getResponse().serverError("");
                 return;

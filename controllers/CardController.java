@@ -25,11 +25,10 @@ public class CardController
 
         try
         {
-            String data = context.getRequest().getParam("playerId");
-            Long playerId = Long.valueOf(data);
+            String playerUId = context.getRequest().getParam("playerUId");
 
             PlayerDAO playerDAO = new PlayerDAO();
-            Player player = playerDAO.find(playerId);
+            Player player = playerDAO.findByUId(playerUId);
 
             CardDAO cardDAO = new CardDAO();
             cards = cardDAO.findAll(player.gameId(), player.canSeeMaskedColor());
@@ -51,7 +50,7 @@ public class CardController
     {
         try
         {
-            Long playerId = Long.parseLong(context.getRequest().getParam("playerId"));
+            String playerUId = context.getRequest().getParam("playerUId");
             Long cardId = Long.parseLong(context.getRequest().getParam("cardId"));
 
             PlayerDAO playerDAO = new PlayerDAO();
@@ -59,7 +58,7 @@ public class CardController
             RoundDAO roundDAO = new RoundDAO();
             CardDAO cardDAO = new CardDAO();
 
-            Player player = playerDAO.find(playerId);
+            Player player = playerDAO.findByUId(playerUId);
             Game game = gameDAO.find(player.gameId());
             Card card = cardDAO.find(cardId);
 

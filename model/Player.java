@@ -1,6 +1,6 @@
 package model;
 
-public record Player(Long id, String name, Long gameId, Role role)
+public record Player(Long id, String name, Long gameId, Role role, String uid)
 {
     public boolean canRevealCards()
     {

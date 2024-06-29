@@ -20,14 +20,14 @@ public class ClueController
     {
         try
         {
-            Long playerId = Long.parseLong(context.getRequest().getParam("playerId"));
+            String playerUId = context.getRequest().getParam("playerUId");
             Clue clue = context.getRequest().extractBody(Clue.class);
 
             PlayerDAO playerDAO = new PlayerDAO();
             GameDAO gameDAO = new GameDAO();
             RoundDAO roundDAO = new RoundDAO();
 
-            Player player = playerDAO.find(playerId);
+            Player player = playerDAO.findByUId(playerUId);
 
             Game game = gameDAO.find(player.gameId());
 

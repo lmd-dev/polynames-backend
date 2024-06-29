@@ -47,7 +47,7 @@ public class PlayerDAO extends DAO
     }
 
     /**
-     * Find player from its id
+     * Finds player from its id
      * 
      * @param playerId Id of the player to find
      * @return Found player or null
@@ -65,6 +65,40 @@ public class PlayerDAO extends DAO
 
             PreparedStatement statement = this.database().prepareStatement(query, 0);
             statement.setLong(1, playerId);
+            ResultSet results = statement.executeQuery();
+
+            if (results.next())
+            {
+                return this.makePlayerFromResult(results);
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * Finds player from its id
+     * 
+     * @param playerUId Unique Id of the player to find
+     * @return Found player or null
+     */
+    public Player findByUId(String playerUId)
+    {
+        try
+        {
+            String query = """
+                        SELECT player.*, game.id as gameId
+                        FROM player
+                        JOIN game ON game.id = player.id_game
+                        WHERE player.uid = ?;
+                    """;
+
+            PreparedStatement statement = this.database().prepareStatement(query, 0);
+            statement.setString(1, playerUId);
             ResultSet results = statement.executeQuery();
 
             if (results.next())
@@ -226,7 +260,8 @@ public class PlayerDAO extends DAO
                 result.getLong("id"), 
                 result.getString("name"), 
                 result.getLong("gameId"),
-                roleDAO.find(result.getLong("id_role"))
+                roleDAO.find(result.getLong("id_role")),
+                result.getString("uid")
             );
         }
         catch (Exception e)

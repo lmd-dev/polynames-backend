@@ -87,7 +87,8 @@ public class GameController
             if (registeredPlayers.size() < 2)
             {
                 player = playerDAO.create(game.id(), player.name());
-                context.getResponse().ok(player.id().toString());
+
+                context.getResponse().json(player);
 
                 if(registeredPlayers.size() == 1)
                 {
@@ -98,7 +99,13 @@ public class GameController
                         Role playerRole = roleDAO.findOtherRole(firstPlayer.role().id());
                         playerDAO.chooseRole(player.id(), playerRole.id());
 
-                        player = new Player(player.id(), player.name(), player.gameId(), playerRole);
+                        player = new Player(
+                            player.id(), 
+                            player.name(), 
+                            player.gameId(), 
+                            playerRole,
+                            player.uid()
+                        );
                     }
                 }
 

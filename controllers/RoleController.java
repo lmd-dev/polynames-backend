@@ -33,10 +33,10 @@ public class RoleController
      */
     public static void findForPlayer(WebServerContext context)
     {
-        Long playerId = Long.parseLong(context.getRequest().getParam("playerId"));
+        String playerUId = context.getRequest().getParam("playerUId");
 
         PlayerDAO playerDAO = new PlayerDAO();
-        Player player = playerDAO.find(playerId);
+        Player player = playerDAO.findByUId(playerUId);
 
         if (player != null)
         {
@@ -57,13 +57,13 @@ public class RoleController
     {
         try
         {
-            Long playerId = Long.parseLong(context.getRequest().getParam("playerId"));
+            String playerUId = context.getRequest().getParam("playerUId");
             Role role = context.getRequest().extractBody(Role.class);
 
             PlayerDAO playerDAO = new PlayerDAO();
             GameDAO gameDAO = new GameDAO();
 
-            Player player = playerDAO.find(playerId);
+            Player player = playerDAO.findByUId(playerUId);
             if (player == null)
             {
                 context.getResponse().notFound("Player not found.");
@@ -77,9 +77,9 @@ public class RoleController
                 return;
             }
 
-            if (playerDAO.chooseRole(playerId, role.id()))
+            if (playerDAO.chooseRole(player.id(), role.id()))
             {
-                Player otherPlayer = playerDAO.findOtherPlayer(playerId);
+                Player otherPlayer = playerDAO.findOtherPlayer(player.id());
 
                 if (otherPlayer != null)
                 {
