@@ -6,7 +6,7 @@
 Download or clone all files from this repository.
 
 ### Libraries
-PolyNames Backend require ```MySQL JDBC Connector``` and ```GSON``` libraries. They are published in the ```libs``` folder. Add them as Referenced Libraries of the project in your development environment.
+PolyNames Backend require ```MariaDB JDBC Connector``` and ```GSON``` libraries. They are published in the ```libs``` folder. Add them as Referenced Libraries of the project in your development environment.
 
 ### Database
 Create a MariaDB or MySQL database from script ```database/database.sql```.

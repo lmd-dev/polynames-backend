@@ -49,7 +49,7 @@ public class MySQLDatabase
         {
             try
             {
-                Class.forName("com.mysql.cj.jdbc.Driver");
+                Class.forName("org.mariadb.jdbc.Driver");
                 MySQLDatabase.initialized = true;
             }
             catch (ClassNotFoundException exception)
@@ -69,7 +69,7 @@ public class MySQLDatabase
 
         if (MySQLDatabase.connection == null)
             MySQLDatabase.connection = DriverManager.getConnection(String
-                    .format("jdbc:mysql://%s:%d/%s?allowMultiQueries=true", this.host, this.port, this.databaseName),
+                    .format("jdbc:mariadb://%s:%d/%s?allowMultiQueries=true", this.host, this.port, this.databaseName),
                     user, password);
     }
 
